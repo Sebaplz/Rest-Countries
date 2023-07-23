@@ -5,7 +5,9 @@ import { useState } from "react";
 
 function Lista() {
   const [searchText, setSearchText] = useState("");
-  const [url, setUrl] = useState("https://restcountries.com/v3.1/all");
+  const [url, setUrl] = useState(
+    "https://restcountries.com/v3.1/all?fields=name,population,capital,region,flags"
+  );
   const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
   const [selectedRegion, setSelectedRegion] = useState("");
 
@@ -32,10 +34,14 @@ function Lista() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (searchText.trim() === "") {
-      setUrl("https://restcountries.com/v3.1/all");
+      setUrl(
+        "https://restcountries.com/v3.1/all?fields=name,population,capital,region,flags"
+      );
       setSelectedRegion("");
     } else {
-      setUrl(`https://restcountries.com/v3.1/name/${searchText}?fullText=true`);
+      setUrl(
+        `https://restcountries.com/v3.1/name/${searchText}?fullText=true&fields=name,population,capital,region,flags`
+      );
       setSelectedRegion("");
     }
   };
@@ -43,19 +49,21 @@ function Lista() {
   const handleRegionChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedRegion(selectedValue);
-    setUrl(`https://restcountries.com/v3.1/region/${selectedValue}`);
+    setUrl(
+      `https://restcountries.com/v3.1/region/${selectedValue}?fields=name,population,capital,region,flags`
+    );
     setSearchText("");
   };
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
-        <h2>Cargando...</h2>
+        <h2 className="text-white">Cargando...</h2>
       </div>
     );
   } else {
     return (
-      <>
+      <main className="text-white">
         <div className="flex justify-between flex-wrap px-10 py-5">
           <form
             onSubmit={handleSubmit}
@@ -78,7 +86,7 @@ function Lista() {
               value={selectedRegion}
               onChange={handleRegionChange}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Filter by region
               </option>
               {regions.map((region) => (
@@ -137,7 +145,7 @@ function Lista() {
             <p>Total de Páginas {totalPages}</p>
           </div>
         </div>
-      </>
+      </main>
     );
   }
 }

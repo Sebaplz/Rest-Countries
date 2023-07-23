@@ -1,15 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Lista from "./components/Lista";
+import Country from "./pages/Country";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div className="bg-[#202C37] min-h-screen">
-      <Navbar />
-      <main className="text-white">
-        <Lista />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="country/:countryName" element={<Country />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
