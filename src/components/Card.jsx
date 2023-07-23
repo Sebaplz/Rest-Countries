@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 function Card({ country }) {
   return (
-    <li key={country.numericCode} className="flex flex-col w-[300px] h-[360px]">
+    <li className="flex flex-col w-[300px] h-[360px]">
       <img
         src={country.flags.png}
-        alt={`Bandera del país de ${country.name}`}
+        alt={
+          country.flags.alt
+            ? country.flags.alt
+            : `Bandera de ${country.name.common}`
+        }
         className="w-[300px] h-[200px] rounded-t-md"
       />
       <div className="flex flex-col items-start p-4 bg-[#2B3945] rounded-b-md pt-2">
-        <h2 className="font-bold text-xl break-words">{country.name}</h2>
+        <h2 className="font-bold text-xl break-words mt-2">
+          {country.name.common}
+        </h2>
         <h4 className="font-semibold mt-4">
           Population: <span className="font-normal">{country.population}</span>
         </h4>
@@ -16,7 +22,10 @@ function Card({ country }) {
           Region: <span className="font-normal">{country.region}</span>
         </h4>
         <h4 className="font-semibold">
-          Capital: <span className="font-normal">{country.capital}</span>
+          Capital:{" "}
+          <span className="font-normal">
+            {country.capital ? country.capital[0] : "No se especifica"}
+          </span>
         </h4>
       </div>
     </li>
