@@ -16,10 +16,13 @@ function Lista() {
     countries,
     handleItemsPerPageChange,
     totalPages,
+    error,
+    setError,
   } = useFetch(url);
 
   const handleInputChange = (event) => {
     setSearchText(event.target.value);
+    setError("");
   };
 
   const handleSubmit = (event) => {
@@ -27,7 +30,7 @@ function Lista() {
     if (searchText.trim() === "") {
       setUrl("https://restcountries.com/v3.1/all");
     } else {
-      setUrl(`https://restcountries.com/v3.1/name/${searchText}`);
+      setUrl(`https://restcountries.com/v3.1/name/${searchText}?fullText=true`);
     }
   };
 
@@ -51,6 +54,7 @@ function Lista() {
         </form>
         <div>lista de regiones</div>
       </div>
+      <p className="text-red-600 ml-10">{error}</p>
       {/* Renderizar los países de la página actual */}
       <ul className="p-4 gap-8 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] place-items-center">
         {getCurrentPageCountries().map((country) => (
