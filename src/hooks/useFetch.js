@@ -5,24 +5,21 @@ function useFetch(url) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData(url) {
     try {
       const response = await fetch(url);
-
       if (response.status == 404) {
-        // Si la respuesta de la API no es satisfactoria (por ejemplo, 404 Not Found), lanzar un error personalizado
         throw new Error(
           `Error: ${response.status} - ${response.statusText} the Country`
         );
       }
-
       const data = await response.json();
       setCountries(data);
-      /* console.log(data); */
+      setIsLoading(false);
     } catch (error) {
       setError(error.message);
-      // Aquí puedes manejar el error de la manera que desees, por ejemplo, mostrando un mensaje de error en la interfaz del usuario
     }
   }
 
@@ -70,6 +67,7 @@ function useFetch(url) {
     countries,
     error,
     setError,
+    isLoading,
   };
 }
 
