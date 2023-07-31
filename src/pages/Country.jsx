@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -56,56 +55,52 @@ function Country() {
     );
   } else {
     return (
-      <div className="bg-[#202C37] min-h-screen">
-        <Navbar />
-        <main className="flex flex-col gap-4 mx-8">
-          <Link
-            to="/"
-            className="text-white bg-[#2B3945] flex items-center justify-center gap-2 px-4 py-2 w-28 rounded-lg mt-10"
+      <div className="flex flex-col gap-4 mx-8">
+        <Link
+          to="/"
+          className="text-white bg-[#2B3945] flex items-center justify-center gap-2 px-4 py-2 w-28 rounded-lg mt-10"
+        >
+          <FaArrowLeft />
+          Back
+        </Link>
+        <p className="text-red-600">{error}</p>
+        {country.map((c) => (
+          <div
+            key={c.name.common}
+            className="flex flex-col lg:flex-row items-center"
           >
-            <FaArrowLeft />
-            Back
-          </Link>
-          <p className="text-red-600">{error}</p>
-          {country.map((c) => (
-            <div
-              key={c.name.common}
-              className="flex flex-col lg:flex-row items-center"
-            >
-              <img src={c.flags.png} alt="" className="w-[320px] h-[220px]" />
-              <div className="flex flex-col gap-4 text-white w-full">
-                <h2 className="text-xl font-bold mt-4">{c.name.common}</h2>
-                <h3>
-                  Native Name: <span>{obtenerNombreComun(c)}</span>
-                </h3>
-                <h3>
-                  Population: <span>{c.population.toLocaleString()}</span>
-                </h3>
-                <h3>
-                  Region: <span>{c.region}</span>
-                </h3>
-                <h3>
-                  Sub Region: <span>{c.subregion}</span>
-                </h3>
-                <h3>
-                  Capital: <span>{c.capital[0]}</span>
-                </h3>
-              </div>
-              <div className="mt-10 flex flex-col gap-4 text-white">
-                <h3>
-                  Top Level Domain: <span>{c.tld[0]}</span>
-                </h3>
-                <h3>
-                  Currencies:{" "}
-                  <span>{obtenerMonedas(c.currencies)[0].name}</span>
-                </h3>
-                <h3>
-                  Languages: <span>{obtenerNombresIdiomas(c.languages)}</span>
-                </h3>
-              </div>
+            <img src={c.flags.png} alt="" className="w-[320px] h-[220px]" />
+            <div className="flex flex-col gap-4 text-white w-full">
+              <h2 className="text-xl font-bold mt-4">{c.name.common}</h2>
+              <h3>
+                Native Name: <span>{obtenerNombreComun(c)}</span>
+              </h3>
+              <h3>
+                Population: <span>{c.population.toLocaleString()}</span>
+              </h3>
+              <h3>
+                Region: <span>{c.region}</span>
+              </h3>
+              <h3>
+                Sub Region: <span>{c.subregion}</span>
+              </h3>
+              <h3>
+                Capital: <span>{c.capital[0]}</span>
+              </h3>
             </div>
-          ))}
-        </main>
+            <div className="mt-10 flex flex-col gap-4 text-white">
+              <h3>
+                Top Level Domain: <span>{c.tld[0]}</span>
+              </h3>
+              <h3>
+                Currencies: <span>{obtenerMonedas(c.currencies)[0].name}</span>
+              </h3>
+              <h3>
+                Languages: <span>{obtenerNombresIdiomas(c.languages)}</span>
+              </h3>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
