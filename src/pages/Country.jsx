@@ -88,28 +88,58 @@ function Country() {
                 Region:{" "}
                 <span className="font-medium text-gray-300">{c.region}</span>
               </h3>
-              <h3 className="font-semibold">
-                Sub Region:{" "}
-                <span className="font-medium text-gray-300">{c.subregion}</span>
-              </h3>
-              <h3 className="font-semibold">
-                Capital:{" "}
-                <span className="font-medium text-gray-300">
-                  {c.capital[0]}
-                </span>
-              </h3>
+              {c.subregion && c.subregion.length > 0 ? (
+                <h3 className="font-semibold">
+                  Sub Region:{" "}
+                  <span className="font-medium text-gray-300">
+                    {c.subregion}
+                  </span>
+                </h3>
+              ) : (
+                <h3 className="text-white font-semibold">
+                  Sub Region:{" "}
+                  <span className="font-medium text-gray-300">
+                    No específica
+                  </span>
+                </h3>
+              )}
+              {c.capital && c.capital.length > 0 ? (
+                <h3 className="font-semibold">
+                  Capital:{" "}
+                  <span className="font-medium text-gray-300">{c.capital}</span>
+                </h3>
+              ) : (
+                <h3 className="text-white font-semibold">
+                  Capital:{" "}
+                  <span className="font-medium text-gray-300">
+                    No específica
+                  </span>
+                </h3>
+              )}
             </div>
+            {console.log(obtenerMonedas(c.currencies)[0].name)}
             <div className="flex flex-col gap-4 text-white w-full mt-4">
               <h3 className="font-semibold">
                 Top Level Domain:{" "}
                 <span className="font-medium text-gray-300">{c.tld[0]}</span>
               </h3>
-              <h3 className="font-semibold">
-                Currencies:{" "}
-                <span className="font-medium text-gray-300">
-                  {obtenerMonedas(c.currencies)[0].name}
-                </span>
-              </h3>
+              {Array.isArray(c.currencies) && c.currencies.length > 0 ? (
+                c.currencies.map((currency) => (
+                  <h3 className="font-semibold" key={currency}>
+                    Currencies:{" "}
+                    <span className="font-medium text-gray-300">
+                      {obtenerMonedas(c.currency)[0].name}
+                    </span>
+                  </h3>
+                ))
+              ) : (
+                <h3 className="text-white font-semibold">
+                  Currencies:{" "}
+                  <span className="font-medium text-gray-300">
+                    No específica
+                  </span>
+                </h3>
+              )}
               <h3 className="font-semibold">
                 Languages:{" "}
                 {Object.keys(c.languages).map((language, index) => (
@@ -124,7 +154,7 @@ function Country() {
               <h2 className="text-white font-semibold text-xl">
                 Border Countries:
               </h2>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 {c.borders && c.borders.length > 0 ? (
                   c.borders.map((border) => (
                     <h3

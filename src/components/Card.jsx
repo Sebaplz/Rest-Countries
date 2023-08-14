@@ -20,7 +20,9 @@ function Card({ country }) {
           </h2>
           <h4 className="font-semibold mt-4">
             Population:{" "}
-            <span className="font-normal">{country.population}</span>
+            <span className="font-normal">
+              {country.population.toLocaleString()}
+            </span>
           </h4>
           <h4 className="font-semibold">
             Region: <span className="font-normal">{country.region}</span>
