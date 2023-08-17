@@ -1,10 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import LayoutPublic from "../pages/LayoutPublic";
 import Dashboard from "../pages/Dashboard";
 import Country from "../pages/Country";
 import ErrorPage from "../pages/ErrorPage";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     element: <LayoutPublic />,
