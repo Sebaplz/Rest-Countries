@@ -2,6 +2,7 @@ import Card from "./Card";
 import useFetch from "../hooks/useFetch";
 import { FaArrowLeft, FaArrowRight, FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 function Lista() {
   const [searchText, setSearchText] = useState("");
@@ -58,22 +59,22 @@ function Lista() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
-        <h2 className="text-white">Cargando...</h2>
+        <Spinner />
       </div>
     );
   } else {
     return (
-      <section className="text-white pb-12">
+      <section className="text-[#858585] dark:text-white pb-12">
         <div className="flex justify-between flex-wrap py-5">
           <form
             onSubmit={handleSubmit}
-            className="flex items-center bg-[#2B3945] rounded-lg"
+            className="flex items-center bg-white dark:bg-[#2B3945] rounded-lg shadow"
           >
             <button className="ml-2 p-4">
               <FaSearch />
             </button>
             <input
-              className="text-white bg-[#2B3945] p-2 w-60 lg:w-80 xl:w-[450px] rounded-r-lg"
+              className="text-[#858585] dark:text-white bg-white dark:bg-[#2B3945] p-2 w-60 lg:w-80 xl:w-[450px] rounded-r-lg"
               type="text"
               placeholder="Search for a country..."
               value={searchText}
@@ -83,7 +84,7 @@ function Lista() {
           </form>
           <div className="mt-4 md:mt-0">
             <select
-              className="bg-[#2B3945] rounded-lg p-4 cursor-pointer"
+              className="bg-white dark:bg-[#2B3945] text-black dark:text-white rounded-lg p-4 cursor-pointer"
               value={selectedRegion}
               onChange={handleRegionChange}
             >
@@ -105,7 +106,7 @@ function Lista() {
             <Card key={country.name.official} country={country} />
           ))}
         </ul>
-        <div>
+        <div className="text-black dark:text-white">
           {/* Controles de paginación */}
           {totalPages > 1 && (
             <div className="flex justify-center gap-2 flex-wrap mt-4">
@@ -134,7 +135,7 @@ function Lista() {
               <select
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
-                className="bg-[#2B3945] ml-4 rounded-lg"
+                className="bg-white dark:bg-[#2B3945] ml-4 rounded-lg"
               >
                 <option value={5}>5 per Page</option>
                 <option value={10}>10 per Page</option>
